@@ -1,0 +1,151 @@
+{
+  "idea": {
+    "name": "PawGuard",
+    "fingerprint": "self-hosted-dog-behavior-detection-edge-ai",
+    "pitch": "Local AI catches your dog misbehaving and triggers smart-home corrections instantly.",
+    "cluster": "user-submitted",
+    "target_customer": "Home Assistant / Frigate power users who own dogs and have existing IP camera infrastructure, frustrated by cloud-locked pet cams with delayed alerts and monthly fees for video storage.",
+    "core_features": [
+      "RTSP/ONVIF stream ingestion via Docker container with zero cloud dependency",
+      "Edge AI model fine-tuned for dog behavior classes: counter-surfing, destructive chewing, resource guarding, compulsive licking",
+      "Real-time webhook and MQTT dispatch to Home Assistant automations, smart plugs, and speakers",
+      "Frigate NVR integration via native MQTT event bus for clip tagging and timeline review",
+      "Web UI dashboard for sensitivity tuning, behavior class toggles, and alert history"
+    ],
+    "pricing_model": "Annual subscription with optional one-time perpetual license tier",
+    "price_point": "$39/year (subscription) or $79 one-time perpetual license \u2014 one-time resonates better with self-hosters who reject recurring fees",
+    "gtm_channel": "r/homeassistant, r/selfhosted, r/homelab, r/dogs subreddits; Home Assistant community forums; YouTube homelab/HA tutorial creators; GitHub repo with free community tier to build trust",
+    "competitive_landscape": "Furbo, Eufy Pet, Wyze are cloud-locked consumer products. Frigate itself does generic object detection (person, dog, cat) but has no behavior-class inference or correction dispatch. No direct competitor exists in the self-hosted behavior-specific dog correction space \u2014 the gap is real but small.",
+    "unfair_advantage": "Behavior-specific fine-tuned model weights (not just 'dog detected') combined with native Frigate/HA integration means it slots into existing infrastructure without replacing anything \u2014 it augments the stack these users already run.",
+    "mvp_estimate": "Python + FastAPI + ONNX Runtime (CPU/Coral TPU) + Docker Compose; YOLOv8 fine-tuned on dog behavior dataset; MQTT publisher + webhook dispatcher. 3-4 weeks solo dev if pre-trained base model is available; 6-8 weeks if behavior dataset must be built from scratch.",
+    "agentic_automation": "License key issuance and delivery via Stripe + automated email (no human touch). Docker Hub hosts the container image; GitHub Actions handles CI/CD and image pushes. A fine-tuned ONNX model ships inside the container \u2014 no inference API calls, no per-user compute cost. Support is async via GitHub Issues with a community Discord. Model retraining runs quarterly on a labeled dataset pipeline. Estimated owner time after launch: 2-3 hours/week (support triage, occasional model updates).",
+    "automation_playbook": "Stripe handles payments and sends license keys via webhook to a lightweight key-validation microservice. Users pull the Docker image, enter their key, and self-configure via YAML \u2014 no onboarding call needed. GitHub Issues and a Discord server handle 90% of support socially (community helps community). Model updates ship as new Docker image tags; users opt-in via Watchtower or manual pull. Monthly MRR reporting via Stripe dashboard requires zero manual work. Estimated owner hours per week: 2-3.",
+    "maintenance_hours_per_week": 3,
+    "keywords": [
+      "home assistant dog detection",
+      "frigate pet behavior",
+      "self-hosted dog camera"
+    ],
+    "supporting_urls": [
+      "https://www.reddit.com/r/homeassistant/comments/10ddye2/ideas_for_home_security_camera_self_hosted/",
+      "https://www.reddit.com/r/selfhosted/comments/19emttc/is_there_a_reasonable_selfhosted_absolutely_cloud/kjdnr2d/",
+      "https://www.reddit.com/r/homelab/comments/1p2gl78/local_ainvr_box_for_home_assistant_frigate/",
+      "https://selfhostedworld.com/software/frigate"
+    ],
+    "weighted_total": 44,
+    "origin_story": "The user identified a real gap: self-hosted homelab enthusiasts running Frigate and Home Assistant have sophisticated camera infrastructure but no purpose-built tool for dog behavior correction \u2014 only generic 'dog detected' events. Evidence from r/homeassistant and r/selfhosted confirms this community is large, technically capable, and deeply motivated to avoid cloud lock-in (multiple threads explicitly rejecting Furbo/Wyze/Ring). However, the evidence also shows these users are highly DIY-oriented and will attempt to build this themselves with Frigate's existing detection hooks before paying. The opportunity is real but narrow: the product must be so polished and behavior-accurate that it saves meaningful setup time versus a custom HA automation.",
+    "checklist": {
+      "ten_plus_posts_same_pain": false,
+      "paying_for_inferior_solution": true,
+      "reachable_channel": true,
+      "mvp_under_4_weeks": false,
+      "price_point_high_enough": false,
+      "hair_on_fire": false,
+      "can_presell": true,
+      "fewer_than_3_competitors": true,
+      "low_maintenance_ops": true
+    },
+    "checklist_passed": 5,
+    "momentum": "unknown",
+    "rising_queries": [],
+    "gate_result": "focused mode: built on request (verdict: caution)"
+  },
+  "pain_points": [
+    {
+      "title": "Frigate - Self-hosted software",
+      "url": "https://selfhostedworld.com/software/frigate",
+      "snippet": "Frigate NVR is an open-source network video recorder aimed at users who want local, privacy-preserving surveillance with AI-assisted detection.\nIt is designed around IP cameras and focuses on...- **Requirements**\nHome AssistantOpenCVTensorFlowMQTTGPU or AI accelerator (recommended)\n- **Runtime / Stack**\nDockerPythonNodejs\n- **Privacy & Independence**\nNo Cloud RequiredOffline Capable\n- **Deployment**\n...\nOllama is a local runtime for running open models and interacting with them through a CLI, REST API, and integrations.\n...\nCodex CLI is a local coding agent from OpenAI that runs on your comput",
+      "source": "reddit"
+    },
+    {
+      "title": "Ideas For Home Security Camera (Self Hosted)",
+      "url": "https://www.reddit.com/r/homeassistant/comments/10ddye2/ideas_for_home_security_camera_self_hosted/",
+      "snippet": "I\u2019m currently using a combination of Frigate and Scrypted.\nFrigate does the bulk of the recording tasks and integrates with HA for object detection.\nScrypted exposes those same cameras into HomeKit Secure Video.\n...\nBlue Iris is a great local NVR, and checks off all of the features you've listed (I'm not 100% sure about microphone, as I don't use that feature, but I'm pretty sure it supports two way audio).\n...\nYou just described Frigate NVR when it's integrated into Home Assistant.\nI run Frigate in docker container and use the integration and MQTT.\n...\nThen use CodeProject AI Server for your ",
+      "source": "reddit"
+    },
+    {
+      "title": "What hardware and software should I use for a selfhosted home security system?",
+      "url": "https://www.reddit.com/r/selfhosted/comments/mjmojl/what_hardware_and_software_should_i_use_for_a/",
+      "snippet": "r/ZoneMinder is a great solution.\nRuns in a docker image and works with most IP cameras.",
+      "source": "reddit"
+    },
+    {
+      "title": "Is there a reasonable self-hosted, absolutely cloud free surveillance system?",
+      "url": "https://www.reddit.com/r/selfhosted/comments/19emttc/is_there_a_reasonable_selfhosted_absolutely_cloud/kjdnr2d/",
+      "snippet": "I think it's worth mentioning that frigate runs independently of Home Assistant if you don't need the automation side of things!\n...\nJust need an MQTT client and some elbow grease depending on your use case.",
+      "source": "reddit"
+    },
+    {
+      "title": "Local AI/NVR Box for Home Assistant + Frigate",
+      "url": "https://www.reddit.com/r/homelab/comments/1p2gl78/local_ainvr_box_for_home_assistant_frigate/",
+      "snippet": "",
+      "source": "reddit"
+    },
+    {
+      "title": "Experienced self-hoster, novice home-automator. Looking to deploy my very first home security system and I have no idea what to pick",
+      "url": "https://www.reddit.com/r/selfhosted/comments/1hjk3xk/experienced_selfhoster_novice_homeautomator/",
+      "snippet": "",
+      "source": "reddit"
+    },
+    {
+      "title": "Home Assistant",
+      "url": "https://www.home-assistant.io/",
+      "snippet": "All your smart home data stays local\nHome Assistant keeps your data local, no need for a cloud.\nHome Assistant communicates with your devices locally, and will fallback\nto pulling in data from the cloud if there is no other option.\nNo data\nis stored in the cloud, and everything is processed locally.",
+      "source": "reddit"
+    },
+    {
+      "title": "Basic self hosted security camera system?",
+      "url": "https://www.reddit.com/r/selfhosted/comments/11wkbw0/basic_self_hosted_security_camera_system/",
+      "snippet": "A bare metal (or VM) install of zoneminder on Linux works really well and is zero cost.\nIt can seem a little complicated to configure, but the documentation is actually pretty good and worth reading for basic config.\n...\nAs someone who used zoneminder extensively in the past.\nI'd recommend setting up Frigate on docker.\nIts a breeze, works out of the box with a simple yaml configuration file, and has support for really stellar object recommendation if you want it.\n...\nI started with dlandon and then updated zoneminder inside the container keeping a local image.\nUsing v1.36.33 without problems.\n",
+      "source": "reddit"
+    },
+    {
+      "title": "I am so done with Frigate NVR. We we have anything more ...",
+      "url": "https://www.reddit.com/r/homeassistant/comments/1ld39x4/i_am_so_done_with_frigate_nvr_we_we_have_anything/",
+      "snippet": "Check out [watchtower](https://github.com/containrrr/watchtower).\nIt automates precisely what you described (works on Linux; unsure about other operating systems, use at your own risk, etc).",
+      "source": "reddit"
+    },
+    {
+      "title": "With the Ring debacle, let's get a self-hosted camera / surveillance thread going.",
+      "url": "https://www.reddit.com/r/selfhosted/comments/1r2xbl6/with_the_ring_debacle_lets_get_a_selfhosted/",
+      "snippet": "It offers features like live views, PTZ control, object detection, facial recognition, sound detection, and license plate recognition.\nI find the interface user-friendly, allowing me to access live feeds as well as review past events by specifying the date, time, and location.\n...\nI operate it in a Docker container on Unraid, running two separate instances, and the integration with Home Assistant surpasses that of Blue Iris.\nAdditionally, it's accessible externally through Cloudflare Zero Trust.\n...\n1. Utilize software on a PC, server, or SBC, such as Frigate, MotionEye, BlueIris, or Scrypted.",
+      "source": "reddit"
+    },
+    {
+      "title": "Is it better to use dedicated CCTV equipment or configure it yourself in your home server?",
+      "url": "https://www.reddit.com/r/homeassistant/comments/1iigyna/is_it_better_to_use_dedicated_cctv_equipment_or/",
+      "snippet": "You could run Proxmox and set up HAOS in a virtual machine.\nAdditionally, you can deploy Frigate either in a VM or as an LXC (I'm currently using Blue Iris myself).\nThis approach allows you to also operate an SMB file share server, Plex, and other home lab projects.",
+      "source": "reddit"
+    },
+    {
+      "title": "NVR for home-assistant?",
+      "url": "https://www.reddit.com/r/homeassistant/comments/p2bpls/nvr_for_homeassistant/",
+      "snippet": "",
+      "source": "reddit"
+    },
+    {
+      "title": "Frigate and HomeAssistant for home security camera feed",
+      "url": "https://www.facebook.com/groups/1014379956363616/posts/1665007634634175/",
+      "snippet": "",
+      "source": "reddit"
+    },
+    {
+      "title": "Self hosted NVR for ONLY RTSP feeds",
+      "url": "https://www.reddit.com/r/homeassistant/comments/1n4pn22/self_hosted_nvr_for_only_rtsp_feeds/",
+      "snippet": "It operates within a Docker environment, integrates smoothly with Home Assistant, and offers a user-friendly web interface for configuration.",
+      "source": "reddit"
+    },
+    {
+      "title": "Self hosted nvr solution",
+      "url": "https://www.reddit.com/r/homelab/comments/1csfzh9/self_hosted_nvr_solution/",
+      "snippet": "I run it on Proxmox, passing through the USB AI accelerator, and I don\u2019t even use the GPU\u2014it works fine.\n...\nThere isn\u2019t a specific app for Frigate, but it offers a Home Assistant integration that allows you to see live streams, recordings, and more inside the HA app.",
+      "source": "reddit"
+    },
+    {
+      "title": "Is there a reasonable self-hosted, absolutely cloud free surveillance system?",
+      "url": "https://www.reddit.com/r/selfhosted/comments/19emttc/is_there_a_reasonable_selfhosted_absolutely_cloud/kjdnr2d/",
+      "snippet": "I think it's worth mentioning that frigate runs independently of Home Assistant if you don't need the automation side of things!",
+      "source": "reddit"
+    }
+  ]
+}
